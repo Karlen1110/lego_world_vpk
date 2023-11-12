@@ -1,0 +1,17 @@
+.btn {
+  padding: 0 15px;
+  min-width: 100px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.btn_white {
+  border: 1px solid #000;
+  color: #000;
+  background: #fff;
+}
+
+.btn_black {
+  background: #000;
+  color: #fff;
+}
