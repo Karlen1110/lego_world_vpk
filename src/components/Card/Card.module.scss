@@ -1,5 +1,5 @@
 .card {
-  width: 296px;
+  min-width: 296px;
 }
 
 .card__name {
@@ -16,6 +16,7 @@
   line-height: normal;
 
   margin-top: 16px;
+  height: 48px;
 }
 
 .card__price {
@@ -26,4 +27,14 @@
   font-weight: 700;
 
   margin: 8px 0;
+}
+
+.card__img{
+  height: 298px;
+}
+
+.card__img img{
+  display: block;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
 }
