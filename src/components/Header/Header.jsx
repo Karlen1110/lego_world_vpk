@@ -23,7 +23,7 @@ const Header = ({products, setFiltredProducts}) => {
           <div className={s["header__buttons"]}>
             {isAuth ? (
               <>
-                <Link to={"/account"}>
+                <Link to={"/profile"}>
                   <Button variant="white">Личный кабинет</Button>
                 </Link>
                 <Button variant="black" onClick={logout}>

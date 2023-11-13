@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Main from "./pages/Main/Main";
 import Registration from "./pages/Registration/Registration";
 import Login from "./pages/Login/Login";
+import Profile from "./pages/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
   {
     path: "/",
