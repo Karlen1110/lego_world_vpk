@@ -4,13 +4,19 @@ import Button from "../Button/Button";
 import productService from "../../services/productService";
 import { toast } from "react-toastify";
 import Loader from "../Loader/Loader";
+import { useNavigate } from "react-router-dom";
 
-const Card = ({ id, name, price, img, cart, setCart }) => {
+const Card = ({ id, name, price, img, cart, setCart, userId }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { userId } = JSON.parse(localStorage.getItem("userData"));
   const cartElem = cart.find((el) => el.productId === id);
 
+  const navigate = useNavigate();
+
   const addProductToCart = async () => {
+    if (!userId) {
+      navigate("/login");
+      return;
+    }
     const data = { userId, productId: id };
     setIsLoading(true);
     try {
@@ -27,6 +33,10 @@ const Card = ({ id, name, price, img, cart, setCart }) => {
   };
 
   const deleteProductFromCart = async () => {
+    if (!userId) {
+      navigate("/login");
+      return;
+    }
     setIsLoading(true);
     try {
       await productService.deleteFromCart(cartElem.id);

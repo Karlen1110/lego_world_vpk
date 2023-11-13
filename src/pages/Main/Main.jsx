@@ -9,11 +9,11 @@ import productService from "../../services/productService";
 
 const Main = () => {
   const [products, setProducts] = useState([]);
+  const [userInfo] = useState(JSON.parse(localStorage.getItem("userData")));
   const [filtredProducts, setFiltredProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState(false);
   const [isLoadingCart, setIsLoadingCart] = useState(false);
-  const { userId } = JSON.parse(localStorage.getItem("userData"));
 
   const getProducts = async () => {
     setIsLoadingProducts(true);
@@ -30,8 +30,9 @@ const Main = () => {
   };
 
   const getCart = useCallback(async () => {
+    if(userInfo === null) return;
     setIsLoadingCart(true);
-    const params = { id: userId };
+    const params = { id: userInfo.userId };
     try {
       const response = await productService.getCart(params);
       setCart(response);
@@ -40,7 +41,7 @@ const Main = () => {
     } finally {
       setIsLoadingCart(false);
     }
-  }, [userId]);
+  }, [userInfo]);
 
   useEffect(() => {
     getProducts();
@@ -51,7 +52,7 @@ const Main = () => {
 
   return (
     <div className={s["main"]}>
-      <Header products={products} setFiltredProducts={setFiltredProducts}/>
+      <Header products={products} setFiltredProducts={setFiltredProducts} />
       <div className={s["container"]}>
         <div className={s["main__content"]}>
           {filtredProducts.map((item, i) => (
@@ -63,6 +64,7 @@ const Main = () => {
               img={`/img${item.picture_path}`}
               cart={cart}
               setCart={setCart}
+              userId={userInfo?.userId}
             />
           ))}
         </div>
