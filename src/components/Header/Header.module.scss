@@ -1,4 +1,10 @@
+@import "../../styles/global";
+
 .header {
+  width: 100%;
+}
+
+.header__row {
   display: flex;
   justify-content: space-between;
   align-items: center;

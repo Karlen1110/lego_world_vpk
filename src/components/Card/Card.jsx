@@ -1,18 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import s from "./Card.module.scss";
 import Button from "../Button/Button";
+import productService from "../../services/productService";
+import { toast } from "react-toastify";
+import Loader from "../Loader/Loader";
 
-const Card = ({ name, price, img }) => {
+const Card = ({ id, name, price, img, cart, setCart }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { userId } = JSON.parse(localStorage.getItem("userData"));
+  const cartElem = cart.find((el) => el.productId === id);
+
+  const addProductToCart = async () => {
+    const data = { userId, productId: id };
+    setIsLoading(true);
+    try {
+      const newCartElem = await productService.addToCart(data);
+      setCart((prev) => {
+        return [...prev, newCartElem];
+      });
+      toast.success("Товар успешно добавлен в корзину!");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const deleteProductFromCart = async () => {
+    setIsLoading(true);
+    try {
+      await productService.deleteFromCart(cartElem.id);
+      setCart((prev) => {
+        return prev.filter((el) => el.id !== cartElem.id);
+      });
+      toast.success("Товар удален из корзины!");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className={s["card"]}>
+      {isLoading && <Loader />}
       <div className={s["card__img"]}>
         <img className={s["card__img"]} src={img} alt="lego" />
       </div>
       <p className={s["card__name"]}>{name}</p>
       <p className={s["card__price"]}>P {price}</p>
-      <Button fullW variant="black">
-        Добавить в корзину
-      </Button>
+      {!!cartElem ? (
+        <Button fullW variant="white" onClick={deleteProductFromCart}>
+          Удалить из корзины
+        </Button>
+      ) : (
+        <Button fullW variant="black" onClick={addProductToCart}>
+          Добавить в корзину
+        </Button>
+      )}
     </div>
   );
 };

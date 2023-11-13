@@ -21,9 +21,12 @@ const LoginForm = () => {
     if (!userData.password) return toast.error("Введите пароль");
     try {
       setIsLoading(true);
-      await authService.login(userData);
+      const response = await authService.login(userData);
       toast.success("Авторизация успешна!");
-      localStorage.setItem("isAuth", true);
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({ userId: response.data.id, mail: response.data.mail })
+      );
       navigate("/");
     } catch (error) {
       toast.error(error.response.data.message);

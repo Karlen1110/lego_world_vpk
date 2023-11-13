@@ -1,5 +1,13 @@
+@import "../../styles/global";
+
+.main {
+  min-height: 100vh;
+  width: 100%;
+}
+
 .main__content {
   padding: 20px;
+  margin-top: 20px;
   display: grid;
   gap: 30px;
   grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));

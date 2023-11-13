@@ -29,9 +29,11 @@ const RegistrationForm = () => {
     try {
       setIsLoading(true);
       const response = await authService.register(userData);
-      console.log(response.status);
       toast.success("Регистрация успешна!");
-      localStorage.setItem("isAuth", true);
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({ userId: response.data.id, mail: response.data.mail })
+      );
       navigate("/");
     } catch (error) {
       toast.error(error.response.data.message);
