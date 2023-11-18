@@ -30,7 +30,7 @@ const Main = () => {
   };
 
   const getCart = useCallback(async () => {
-    if(userInfo === null) return;
+    if (userInfo === null) return;
     setIsLoadingCart(true);
     const params = { id: userInfo.userId };
     try {
@@ -52,7 +52,11 @@ const Main = () => {
 
   return (
     <div className={s["main"]}>
-      <Header products={products} setFiltredProducts={setFiltredProducts} />
+      <Header
+        products={products}
+        setFiltredProducts={setFiltredProducts}
+        search
+      />
       <div className={s["container"]}>
         <div className={s["main__content"]}>
           {filtredProducts.map((item, i) => (

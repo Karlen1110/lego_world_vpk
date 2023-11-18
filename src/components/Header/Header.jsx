@@ -4,7 +4,7 @@ import Search from "../Search/Search";
 import Button from "../Button/Button";
 import { Link, useNavigate } from "react-router-dom";
 
-const Header = ({products, setFiltredProducts}) => {
+const Header = ({ products, setFiltredProducts, search }) => {
   const isAuth = !!localStorage.getItem("userData");
 
   const navigate = useNavigate();
@@ -18,8 +18,15 @@ const Header = ({products, setFiltredProducts}) => {
     <header className={s["header"]}>
       <div className={s["container"]}>
         <div className={s["header__row"]}>
-          <h1 className={s["header__shop-title"]}>Lego World</h1>
-          <Search products={products} setFiltredProducts={setFiltredProducts}/>
+          <Link to={'/'}>
+            <h1 className={s["header__shop-title"]}>Lego World</h1>
+          </Link>
+          {search && (
+            <Search
+              products={products}
+              setFiltredProducts={setFiltredProducts}
+            />
+          )}
           <div className={s["header__buttons"]}>
             {isAuth ? (
               <>

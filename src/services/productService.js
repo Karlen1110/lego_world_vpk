@@ -22,6 +22,11 @@ const deleteFromCart = async (id) => {
   return response.data;
 };
 
-const productService = { getProducts, addToCart, getCart, deleteFromCart };
+const purchase = async (data) => {
+  const response = await axios.post(API_URL + "purchase", data);
+  return response.data;
+};
+
+const productService = { getProducts, addToCart, getCart, deleteFromCart, purchase };
 
 export default productService;

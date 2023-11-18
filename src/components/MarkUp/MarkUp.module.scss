@@ -1,0 +1,24 @@
+.mark-up {
+  margin-top: 40px;
+}
+
+.mark-up__title {
+  font-weight: 700;
+  font-family: "Roboto";
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.mark-up__buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.mark-up__input {
+  border: 1px solid black;
+  height: 30px;
+  width: 75px;
+  padding: 5px;
+  font-size: 1rem;
+  border-radius: 8px;
+}
