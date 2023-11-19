@@ -1,0 +1,30 @@
+.sales {
+  margin: 40px 0;
+}
+
+.sales__title {
+  font-weight: 700;
+  font-family: "Roboto";
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.sales__cart-item {
+  display: flex;
+  align-items: center;
+}
+
+.sales__quantity {
+  font-size: 16px;
+  font-family: "Roboto";
+}
+
+.sales__buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.sales__quantity {
+  font-size: 16px;
+  font-family: "Roboto";
+}

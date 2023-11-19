@@ -7,6 +7,7 @@ import { Spinner } from "../../components/Loader/Loader";
 import Purchase from "../../components/Purchase/Purchase";
 import MarkUp from "../../components/MarkUp/MarkUp";
 import stockService from "../../services/stockService";
+import InfoSales from "../../components/InfoSales/InfoSales";
 
 const Profile = () => {
   const [userInfo] = useState(JSON.parse(localStorage.getItem("userData")));
@@ -54,6 +55,7 @@ const Profile = () => {
       <div className={s["container"]}>
         <Purchase cart={cart} />
         <MarkUp stock={stock} />
+        <InfoSales stock={stock} />
       </div>
     </div>
   );
