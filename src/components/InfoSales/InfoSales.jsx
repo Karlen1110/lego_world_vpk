@@ -6,10 +6,12 @@ import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import Button from "../Button/Button";
 import salesService from "../../services/salesService";
 import { toast } from "react-toastify";
+import SalesDrawer from "../SalesDrawer/SalesDrawer";
 
 const InfoSales = ({ stock }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [infoData, setInfoData] = useState([]);
+  const [isSalesOpen, setIsSalesOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
 
   const selectProduct = (checked, item) => {
@@ -29,6 +31,7 @@ const InfoSales = ({ stock }) => {
   };
 
   const genOrders = async () => {
+    setIsLoading(true);
     const data = {
       count_mounth: 6,
       all_products: selectedItems,
@@ -45,11 +48,14 @@ const InfoSales = ({ stock }) => {
   };
 
   const getinfoData = async () => {
+    setIsLoading(true);
     const data = JSON.parse(localStorage.getItem("orders"));
     try {
       const response = await salesService.infoData(data);
       setInfoData(response.all_month);
+      localStorage.setItem("info_data", JSON.stringify(response));
       toast.success("Информация о продажах была получена!");
+      setIsSalesOpen(true);
     } catch (error) {
       toast.error(error);
     } finally {
@@ -61,6 +67,11 @@ const InfoSales = ({ stock }) => {
     <div className={s["sales"]}>
       <h3 className={s["sales__title"]}>Сервис "Информация о продажах"</h3>
       {isLoading && <Loader />}
+      <SalesDrawer
+        setIsSalesOpen={setIsSalesOpen}
+        isSalesOpen={isSalesOpen}
+        sales={infoData}
+      />
       <div className={s["sales__content"]}>
         <FormGroup
           sx={{
@@ -89,7 +100,7 @@ const InfoSales = ({ stock }) => {
                 label={el.product.name}
               />
               <span className={s["sales__price"]}>
-                {Math.floor(el.product.price * (1 + el.markup / 100))}
+                {Math.floor(el.product.price * (1 + el.markup / 100))} руб.
               </span>
             </React.Fragment>
           ))}

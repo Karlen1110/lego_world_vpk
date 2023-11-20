@@ -8,6 +8,7 @@ import Purchase from "../../components/Purchase/Purchase";
 import MarkUp from "../../components/MarkUp/MarkUp";
 import stockService from "../../services/stockService";
 import InfoSales from "../../components/InfoSales/InfoSales";
+import AnalysisData from "../../components/AnalysisData/AnalysisData";
 
 const Profile = () => {
   const [userInfo] = useState(JSON.parse(localStorage.getItem("userData")));
@@ -56,6 +57,7 @@ const Profile = () => {
         <Purchase cart={cart} />
         <MarkUp stock={stock} />
         <InfoSales stock={stock} />
+        <AnalysisData />
       </div>
     </div>
   );

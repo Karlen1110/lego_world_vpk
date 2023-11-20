@@ -1,0 +1,15 @@
+.sales-drawer__header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+.sales-drawer__title {
+  text-align: center;
+  font-family: "Roboto";
+}
+
+.sales-drawer__body{
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
