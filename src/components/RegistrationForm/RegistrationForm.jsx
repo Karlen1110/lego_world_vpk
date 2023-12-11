@@ -32,7 +32,7 @@ const RegistrationForm = () => {
       toast.success("Регистрация успешна!");
       localStorage.setItem(
         "userData",
-        JSON.stringify({ userId: response.data.id, mail: response.data.mail })
+        JSON.stringify({ userId: response.id, mail: response.mail })
       );
       navigate("/");
     } catch (error) {

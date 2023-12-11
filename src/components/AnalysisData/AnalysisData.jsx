@@ -63,8 +63,6 @@ const AnalysisData = () => {
     }
   };
 
-  console.log(abcInfo);
-
   return (
     <div className={s["analysis"]}>
       <h3 className={s["analysis__title"]}>
