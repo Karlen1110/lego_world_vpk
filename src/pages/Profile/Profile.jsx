@@ -74,7 +74,7 @@ const Profile = () => {
 
       const contractInstance = new web3Instance.eth.Contract(
         ContractABI,
-        "0x26E35C4b226d8Fb2AB33b168aE6c3ff05E5D5c29"
+        "0x0A3D48306b96Eb6c3DB6E6f809924A5f61c17F47"
       );
       setContract(contractInstance);
 

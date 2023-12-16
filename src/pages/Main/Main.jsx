@@ -6,6 +6,10 @@ import { Spinner } from "../../components/Loader/Loader";
 import s from "./Main.module.scss";
 import { toast } from "react-toastify";
 import productService from "../../services/productService";
+import { Button } from "@mui/material";
+
+import XMLParser from "react-xml-parser";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
   const [products, setProducts] = useState([]);
@@ -14,6 +18,8 @@ const Main = () => {
   const [cart, setCart] = useState([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState(false);
   const [isLoadingCart, setIsLoadingCart] = useState(false);
+
+  const navigate = useNavigate();
 
   const getProducts = async () => {
     setIsLoadingProducts(true);
@@ -43,6 +49,53 @@ const Main = () => {
     }
   }, [userInfo]);
 
+  const readFile = (file) => {
+    let reader = new FileReader();
+
+    reader.readAsText(file);
+
+    reader.onload = async function () {
+      const xml = new XMLParser().parseFromString(reader.result);
+      const json = xml.children.map((el) => {
+        const objItem = {};
+        el.children.forEach((el) => {
+          if (el.name === "price") return (objItem[el.name] = Number(el.value));
+          objItem[el.name] = el.value;
+        });
+        return objItem;
+      });
+      await productService.addProducts(json);
+      navigate(0);
+    };
+
+    reader.onerror = function () {
+      console.log(reader.error);
+    };
+  };
+
+  const downloadFile = ({ data, fileName, fileType }) => {
+    const blob = new Blob([data], { type: fileType });
+    const a = document.createElement("a");
+    a.download = fileName;
+    a.href = window.URL.createObjectURL(blob);
+    const clickEvt = new MouseEvent("click", {
+      view: window,
+      bubbles: true,
+      cancelable: true,
+    });
+    a.dispatchEvent(clickEvt);
+    a.remove();
+  };
+
+  const exportToJson = (e) => {
+    e.preventDefault();
+    downloadFile({
+      data: JSON.stringify(products),
+      fileName: "products.json",
+      fileType: "text/json",
+    });
+  };
+
   useEffect(() => {
     getProducts();
     getCart();
@@ -58,6 +111,22 @@ const Main = () => {
         search
       />
       <div className={s["container"]}>
+        <div className={s["main__files"]}>
+          <h3>Импорт/Экспорт</h3>
+          <div className={s["main__files-btn"]}>
+            <Button
+              component="label"
+              className={s["main__upload-black"]}
+              onChange={(e) => readFile(e.target.files[0])}
+            >
+              Импорт
+              <input type="file" hidden />
+            </Button>
+            <Button className={s["main__upload-white"]} onClick={exportToJson}>
+              Экспорт
+            </Button>
+          </div>
+        </div>
         <div className={s["main__content"]}>
           {filtredProducts.map((item, i) => (
             <Card

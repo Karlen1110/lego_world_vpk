@@ -12,3 +12,38 @@
   gap: 30px;
   grid-template-columns: repeat(auto-fit, minmax(295px, 1fr));
 }
+
+.main__files {
+  padding: 0 20px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.main__files-btn{
+  display: flex;
+  column-gap: 10px;
+}
+
+.main__upload-black {
+  background-color: black !important;
+  color: white !important;
+  border: 1px solid black !important;
+  border-radius: 0 !important;
+  &:hover {
+    background-color: black !important;
+    color: white !important;
+  }
+}
+
+.main__upload-white {
+  background-color: white !important;
+  color: black !important;
+  border: 1px solid black !important;
+  border-radius: 0 !important;
+  &:hover {
+    background-color: white !important;
+    color: black !important;
+  }
+}

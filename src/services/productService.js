@@ -7,6 +7,11 @@ const getProducts = async (params) => {
   return response.data;
 };
 
+const addProducts = async (data) => {
+  const response = await axios.post(API_URL + "add", data);
+  return response.data;
+};
+
 const addToCart = async (data) => {
   const response = await axios.post(API_URL + "cart", data);
   return response.data;
@@ -27,6 +32,13 @@ const purchase = async (data) => {
   return response.data;
 };
 
-const productService = { getProducts, addToCart, getCart, deleteFromCart, purchase };
+const productService = {
+  getProducts,
+  addProducts,
+  addToCart,
+  getCart,
+  deleteFromCart,
+  purchase,
+};
 
 export default productService;
